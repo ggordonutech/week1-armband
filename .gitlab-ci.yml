@@ -12,7 +12,6 @@ variables:
 cache:
   paths:
     - .m2/repository/
-    - target/
 
 build:
   stage: build
@@ -22,13 +21,16 @@ build:
     - cd ../armband
     - mvn $MAVEN_CLI_OPTS compile
 
+
 test:
   stage: test
   script:
+    - cd armband
     - mvn $MAVEN_CLI_OPTS test
 
 run:
   stage: run
   script:
+    - cd armband
     - mvn $MAVEN_CLI_OPTS package
     - mvn $MAVEN_CLI_OPTS exec:java -Dexec.mainClass="armband.Driver"
